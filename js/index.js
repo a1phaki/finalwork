@@ -27,8 +27,8 @@ function renderData(data){
                     <img src="${item.images}" alt="">
                     <a href="#" class="addCardBtn" data-id='${item.id}'>加入購物車</a>
                     <h3>${item.title}</h3>
-                    <del class="originPrice">NT$${item.origin_price}</del>
-                    <p class="nowPrice">NT$${item.price}</p>
+                    <del class="originPrice">NT$${toThousands(item.origin_price)}</del>
+                    <p class="nowPrice">NT$${toThousands(item.price)}</p>
                 </li> `
         productWrap.innerHTML = str;
     })
@@ -58,9 +58,9 @@ function getCartList(){
                                     <p>${item.product.title}</p>
                                 </div>
                             </td>
-                            <td>${item.product.price}</td>
+                            <td>${toThousands(item.product.price)}</td>
                             <td>${item.quantity}</td>
-                            <td>${item.product.price*item.quantity}</td>
+                            <td>${toThousands(item.product.price*item.quantity)}</td>
                             <td class="discardBtn">
                                 <a href="#" class="material-icons" data-id='${item.id}'>
                                     clear
@@ -69,7 +69,7 @@ function getCartList(){
                         </tr>`
             })
             cartListContent.innerHTML = str ;
-            totalPrice.textContent = `NT$${response.data.finalTotal}`;
+            totalPrice.textContent = `NT$${toThousands(response.data.finalTotal)}`;
         })
         .catch(function(error){
             alert(error.response.data.message);
@@ -143,13 +143,15 @@ orderInfoBtn.addEventListener('click',function(event){
     const orderMessage = document.querySelectorAll('.orderInfo-message');
 
     orderInput.forEach((item,index)=>{
-        if(item.value.toString().trim()===''){
+        if(item.value.toString().trim()===''||(item.name=='Email'&&validateEmail(customerEmail.value))||(item.name=='電話'&&validatePhone(customerPhone.value))){
             empty = true;
             orderMessage[index].setAttribute('style','display:block');
         }else{
             orderMessage[index].setAttribute('style','display:none');
         }
     })
+
+   
 
     if(!empty){
         axios.post(`https://livejs-api.hexschool.io/api/livejs/v1/customer/${apiPath}/orders`,{
@@ -175,5 +177,27 @@ orderInfoBtn.addEventListener('click',function(event){
     }
 })
 
+function toThousands(number){
+    let parts = number.toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
+}
 
+function validateEmail(mail){
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(emailRegex.test(mail)){
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function validatePhone(phone){
+    const phoneRegex = /^09\d{8}$/;
+    if(phoneRegex.test(phone.toString())){
+        return false;
+    }else{
+        return true;
+    }
+}
 init();

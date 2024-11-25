@@ -112,7 +112,7 @@ function chartDataUpdate(data){
     productsList.sort((a, b) => b.totalPrice - a.totalPrice);
     chartData = productsList.slice(0,3);
     let othersPrice = productsList.slice(3).reduce((sum,item)=>sum + item.totalPrice,0);
-    if(othersPrice>0){
+    if(othersPrice > 0){
         chartData.push({product : '其他',totalPrice:othersPrice});
     }
     return chartData.map(item=>[item.product,item.totalPrice]);

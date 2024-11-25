@@ -704,17 +704,9 @@ body {
   margin-right: 10px;
 }
 
-.orderInfo-inputWrap {
-  position: relative;
-}
 
 .orderInfo-message {
-  position: absolute;
-  white-space: nowrap;
-  left: 103%;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  padding-top: 5px;
   color: #C72424;
 }
 
