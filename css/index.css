@@ -826,3 +826,34 @@ body {
   display: none;
 }
 /*# sourceMappingURL=all.css.map */
+
+.cartIcon {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  font-size: 48px;
+  cursor: pointer;
+}
+.cartCount {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+@keyframes jump {
+  0% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-10px); /* 向上移動 */
+  }
+  100% {
+      transform: translateY(0); /* 回到原位 */
+  }
+}

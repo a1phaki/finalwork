@@ -4,7 +4,9 @@ let cartProducts = [];
 
 const productWrap = document.querySelector('.productWrap');
 const productSelect = document.querySelector('.productSelect');
-const cartListContent = document.querySelector('.shoppingCart-table tbody')
+const cartListContent = document.querySelector('.shoppingCart-table tbody');
+const shoppingCart = document.querySelector('.shoppingCart');
+const cartCount = document.querySelector('.cartCount');
 
 let totalPrice = document.querySelector('.totalPrice');
 
@@ -70,6 +72,7 @@ function getCartList(){
             })
             cartListContent.innerHTML = str ;
             totalPrice.textContent = `NT$${toThousands(response.data.finalTotal)}`;
+            updateCartCount(cartProducts);
         })
         .catch(function(error){
             alert(error.response.data.message);
@@ -92,7 +95,6 @@ productWrap.addEventListener('click',function(event){
         }
     })
     .then(function(response){
-        cartProducts = response.data.carts;
         getCartList();
     })
     .catch(function(error){
@@ -200,4 +202,21 @@ function validatePhone(phone){
         return true;
     }
 }
+
+const cartIcon = document.querySelector('.cartIcon');
+cartIcon.addEventListener('click',function(){
+    shoppingCart.scrollIntoView({ behavior: 'smooth' });
+})
+
+function updateCartCount(data){
+    let count = data.length;
+    cartCount.textContent = count;
+    cartCount.style.animation = 'jump 0.3s ease';
+
+            // 動畫結束後移除動畫
+    cartCount.addEventListener('animationend', () => {
+        cartCount.style.animation = '';   
+    }, { once: true });
+}
+
 init();
