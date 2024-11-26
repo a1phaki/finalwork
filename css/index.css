@@ -828,16 +828,29 @@ body {
 /*# sourceMappingURL=all.css.map */
 
 .cartIcon {
+  padding-top: 10px;
   position: fixed;
   bottom: 40px;
   right: 40px;
-  font-size: 48px;
+  font-size: 38px;
+  background-color:white;
   cursor: pointer;
+  z-index: 1000; /* 確保它位於其他元素上方 */
+  width: 100px;     /* 按鈕的寬度 */
+  height: 100px;
+  display: flex; /* 中央對齊圖標 */
+  align-items: center;    
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+.cartIcon:hover {
+  transform: scale(1.1); /* 滑過時放大效果 */
 }
 .cartCount {
   position: absolute;
-  top: -10px;
-  right: -10px;
+  top: -5px;
+  right: 5px;
   background-color: red;
   color: white;
   border-radius: 50%;
@@ -849,6 +862,8 @@ body {
 @media (max-width: 767px) {
   .cartIcon {
     font-size: 30px; 
+    width: 80px;     /* 按鈕的寬度 */
+    height: 80px;
   }
   .cartCount{
     font-size:12px
